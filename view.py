@@ -23,28 +23,45 @@ class Portfolioview:
         purchase_price = input("purchase price: ")
 
         return {
-            "Ticker": asset_ticker,
-            "Sector": sector,
-            "Class": asset_class,
+            "ticker": asset_ticker,
+            "sector": sector,
+            "class": asset_class,
             "quantity": quantity,
             "price": purchase_price
         }
     
+    # Option 2
     def ask_current_and_historical_prices(self):
         print("Price options")
         print("1. Current price")
         print("2. Historical price")
-        print("Back to main menu")
+        print("3. Back to main menu")
 
         return input("Choose an option: ")
     
+    # Option 3
     def create_graph(self):
         print("1. Create graph")
         print("2. Back to main menu")
 
         return input("Choose an option")
     
-    def view_current_portfolio(self):
+    # Option 4 Needs data to create table
+    def view_current_portfolio(self, portfolio_data):
+        if not portfolio_data:
+            print("Empty portfolio")
+            return
         
+        # Still need table
+        print(portfolio_data)
+        
+    
+    def calculations_portfolio(self, calculations_data):
+        print(calculations_data)
+
+    def simulation(self, results):
+        print("Simulation over the upcoming 15 years for the porfolio")
+        print(results)
+
 
   
