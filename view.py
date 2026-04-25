@@ -1,4 +1,4 @@
-class portfolioview:
+class PortfolioView:
     # Choices 
     def show_menu(self):
         print("Option choices")
@@ -22,12 +22,13 @@ class portfolioview:
         quantity = input("quantity: ")
         purchase_price = input("purchase price: ")
 
+        # Return a dictionary
         return {
             "ticker": asset_ticker,
             "sector": sector,
-            "class": asset_class,
+            "asset_class": asset_class,
             "quantity": quantity,
-            "price": purchase_price
+            "purchase_price": purchase_price
         }
     
     # Option 2
@@ -52,8 +53,9 @@ class portfolioview:
             print("Empty portfolio")
             return
         
-        # Still need table
-        print(portfolio_data)
+        # Loop over every dictionary inside list
+        for asset in portfolio_data:
+            print(f"{asset["ticker"]} | {asset["sector"]} | {asset["asset_class"]} | {asset["quantity"]} | {asset["purchase_price"]}")
         
     # Option 5
     def ask_calculation_choice(self):
