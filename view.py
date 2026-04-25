@@ -1,4 +1,4 @@
-class Portfolioview:
+class portfolioview:
     # Choices 
     def show_menu(self):
         print("Option choices")
@@ -40,7 +40,7 @@ class Portfolioview:
         return input("Choose an option: ")
     
     # Option 3
-    def create_graph(self):
+    def ask_graph_choice(self):
         print("1. Create graph")
         print("2. Back to main menu")
 
@@ -55,11 +55,18 @@ class Portfolioview:
         # Still need table
         print(portfolio_data)
         
-    
-    def calculations_portfolio(self, calculations_data):
-        print(calculations_data)
+    # Option 5
+    def ask_calculation_choice(self):
+        print("1. Total portfolio value")
+        print("2. Weights per asset")
+        print("3. Weights per asset class")
+        print("4. Weights per sector")
+        print("5. Back to main menu")
 
-    def simulation(self, results):
+        return input("Choose an option")
+
+    # Option 6
+    def show_simulation(self, results):
         print("Simulation over the upcoming 15 years for the porfolio")
         print(results)
 
