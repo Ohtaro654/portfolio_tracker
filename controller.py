@@ -30,11 +30,25 @@ class PortfolioController:
 
                 elif price_choice == "2":
                     ticker = self.view.ask_ticker()
-                    historical_price = self.model.get_historical_price(ticker)
+                    historical_price = self.model.get_historical_price(ticker, "1y")
+
                     self.view.show_historical_price(ticker, historical_price)
 
                 else:
                     continue
+
+            elif choice == "3":
+                graph_choice = self.view.ask_graph_choice()
+                
+                if graph_choice == "1":
+                    tickers = self.view.ask_tickers()
+                    period = self.view.ask_period()
+                    historical_prices_per_ticker = self.model.multiple_historical_prices(tickers, period)
+                    graph = self.view.plot_graph(historical_prices_per_ticker)
+
+                else:
+                    continue
+
 
             elif choice == "4":
                 # Function is from model, generating portfolio data
@@ -73,10 +87,6 @@ class PortfolioController:
 
             
             '''
-
-            elif choice == "3":
-                graph_choice = self.view.ask_graph_choice()
-                # Pass this graph choice into function in model
 
 
             elif choice == "6":

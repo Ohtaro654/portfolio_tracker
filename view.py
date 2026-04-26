@@ -1,3 +1,5 @@
+import matplotlib.pyplot as plt
+
 class PortfolioView:
     # Choices 
     def show_menu(self):
@@ -50,6 +52,34 @@ class PortfolioView:
         
         print(f"The current price for {ticker} is {price:.2f}.")
 
+    '''
+    Maybe let the user manually input this
+    '''
+    def ask_period(self):
+        print("Choose period: ")
+        print("1. 1 month")
+        print("2. 3 months")
+        print("3. Half a year")
+        print("4. 1 year")
+        print("5. 3 years")
+        print("6. 5 years")
+
+        choice = input("Choose an option: ")
+        if choice == "1":
+            return "1mo"
+        elif choice == "2":
+            return "3mo"
+        elif choice == "3":
+            return "6mo"
+        elif choice == "4":
+            return "1y"
+        elif choice == "5":
+            return "3y"
+        elif choice == "6":
+            return "5y"
+        else:
+            return "1mo"
+
     def show_historical_price(self, ticker, prices):
         if prices is None:
             print("No data available")
@@ -63,6 +93,9 @@ class PortfolioView:
             print(f"{date.date()} | {value:.2f}")
 
     
+    '''
+    Maybe add log differences of stocks
+    '''
     # Option 3
     def ask_graph_choice(self):
         print("1. Create graph")
@@ -70,7 +103,32 @@ class PortfolioView:
 
         return input("Choose an option: ")
     
-    # Option 4 Needs data to create table
+    # Returns a list with tickers
+    def ask_tickers(self):
+        tickers = input("Enter tickers seperated by comma's: ")
+        return [ticker.strip().upper() for ticker in tickers.split(",")]
+    
+    # Prices from the model, dictionary with ticker as key and series with date and closing price as value
+    def plot_graph(self, prices):
+        if not prices:
+            print("No data available")
+            return
+        
+        plt.figure(figsize = (12, 6))
+
+        for ticker, price_series in prices.items():
+            plt.plot(price_series.index, price_series.values, label = ticker)
+
+        plt.title("Historical closing prices")
+        plt.xlabel("Data")
+        plt.ylabel("closing prices")
+        plt.legend()
+        plt.grid(True)
+        plt.tight_layout()
+        plt.show()
+
+    
+    # Option 4 
     def view_current_portfolio(self, portfolio_data):
         if not portfolio_data:
             print("Empty portfolio")

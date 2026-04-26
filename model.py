@@ -32,9 +32,9 @@ class PortfolioModel:
         return data["Close"].iloc[-1]
 
 
-    def get_historical_price(self, ticker):
+    def get_historical_price(self, ticker, time_period):
         stock = yf.Ticker(ticker)
-        data = stock.history(period = "1mo")
+        data = stock.history(period = time_period)
 
         if data.empty:
             return None
@@ -45,6 +45,23 @@ class PortfolioModel:
     def get_portfolio(self):
         return self.assets
     
+    # Point 3
+
+    # Gives back dictionary, with each entry a ticker as key and historical prices as value
+    def multiple_historical_prices(self, tickers, period):
+        prices = {}
+
+        for ticker in tickers:
+            price = self.get_historical_price(ticker, period)
+
+            if price is not None and not price.empty:
+                prices[ticker] = price
+        
+        return prices
+        
+        
+
+
 
     # Point 4
     def total_portfolio_value(self):
