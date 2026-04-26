@@ -2,7 +2,7 @@ class PortfolioModel:
     def __init__(self):
         self.assets = []
 
-
+    # Point 1
     def add_asset(self, asset_data):
         asset = {
             "ticker": asset_data["ticker"].upper(),
@@ -16,3 +16,30 @@ class PortfolioModel:
 
     def get_portfolio(self):
         return self.assets
+    
+
+    # Point 4
+    def total_portfolio_value(self):
+        total_value = sum(asset["quantity"] * asset["purchase_price"] for asset in self.assets)
+        return total_value
+
+    # Calculate the weights
+    def weight_calculation(self, group):
+        total_value = self.total_portfolio_value()
+
+        weights = {}
+
+        for asset in self.assets:
+            key = asset[group]
+            value = asset["quantity"] * asset["purchase_price"]
+            if key not in weights:
+                weights[key] = 0
+            
+            weights[key] += value
+        
+        for key in weights:
+            weights[key] /= total_value
+
+        return weights
+    
+
