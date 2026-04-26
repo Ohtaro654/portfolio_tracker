@@ -23,6 +23,29 @@ class PortfolioController:
                 # Function is from model, generating portfolio data
                 portfolio_data = self.model.get_portfolio()
                 self.view.view_current_portfolio(portfolio_data)
+
+            
+            elif choice == "5":
+                weight_choice = self.view.ask_calculation_choice()
+
+                if weight_choice == "1":
+                    total_value = self.model.total_portfolio_value()
+                    self.view.show_total_value(total_value)
+
+                elif weight_choice == "2":
+                    weight_per_asset = self.model.weight_calculation("ticker")
+                    self.view.show_weight(weight_per_asset)
+
+                elif weight_choice == "3":
+                    weight_per_class = self.model.weight_calculation("asset_class")
+                    self.view.show_weight(weight_per_class)
+
+                elif weight_choice == "4":
+                    weight_per_sector = self.model.weight_calculation("sector")
+                    self.view.show_weight(weight_per_sector)
+                
+                elif weight_choice == "5":
+                    continue
             
             elif choice == "7":
                 print("done")
@@ -41,8 +64,6 @@ class PortfolioController:
                 graph_choice = self.view.ask_graph_choice()
                 # Pass this graph choice into function in model
 
-            elif choice == "5":
-                portfolio_info_choice = self.view.ask_calculation_choice()
 
             elif choice == "6":
                 simulation_results = self.model.function()

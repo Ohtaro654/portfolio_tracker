@@ -55,7 +55,7 @@ class PortfolioView:
         
         # Loop over every dictionary inside list
         for asset in portfolio_data:
-            print(f"{asset["ticker"]} | {asset["sector"]} | {asset["asset_class"]} | {asset["quantity"]} | {asset["purchase_price"]}")
+            print(f"{asset['ticker']} | {asset['sector']} | {asset['asset_class']} | {asset['quantity']} | {asset['purchase_price']}")
         
     # Option 5
     def ask_calculation_choice(self):
@@ -66,6 +66,18 @@ class PortfolioView:
         print("5. Back to main menu")
 
         return input("Choose an option")
+    
+    # Print total asset value
+    def show_total_value(self, total_value):
+        print(f"Total portfolio value: {total_value:.2f}")
+    
+    def show_weight(self, weights):
+        if not weights:
+            print("There are no weights")
+            return
+        
+        for key, value in weights.items():
+            print(f"{key}: {value:.2%}")
 
     # Option 6
     def show_simulation(self, results):

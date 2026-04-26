@@ -26,6 +26,8 @@ class PortfolioModel:
     # Calculate the weights
     def weight_calculation(self, group):
         total_value = self.total_portfolio_value()
+        if total_value == 0:
+            return {}
 
         weights = {}
 
