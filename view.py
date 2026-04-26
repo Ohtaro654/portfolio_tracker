@@ -40,12 +40,35 @@ class PortfolioView:
 
         return input("Choose an option: ")
     
+    def ask_ticker(self):
+        return input("For which stock do you want to see data: ")
+    
+    def show_current_price(self, ticker, price):
+        if price is None:
+            print("No data available")
+            return
+        
+        print(f"The current price for {ticker} is {price:.2f}.")
+
+    def show_historical_price(self, ticker, prices):
+        if prices is None:
+            print("No data available")
+            return
+        
+        print(f"Print the last 5 closing prices for {ticker}.")
+
+        last_5_days = prices.tail(5)
+
+        for date, value in last_5_days.items():
+            print(f"{date.date()} | {value:.2f}")
+
+    
     # Option 3
     def ask_graph_choice(self):
         print("1. Create graph")
         print("2. Back to main menu")
 
-        return input("Choose an option")
+        return input("Choose an option: ")
     
     # Option 4 Needs data to create table
     def view_current_portfolio(self, portfolio_data):
@@ -53,6 +76,7 @@ class PortfolioView:
             print("Empty portfolio")
             return
         
+        print("Ticker | Sector | Asset Class | Quantity | Purchase Price")
         # Loop over every dictionary inside list
         for asset in portfolio_data:
             print(f"{asset['ticker']} | {asset['sector']} | {asset['asset_class']} | {asset['quantity']} | {asset['purchase_price']}")
@@ -65,7 +89,7 @@ class PortfolioView:
         print("4. Weights per sector")
         print("5. Back to main menu")
 
-        return input("Choose an option")
+        return input("Choose an option: ")
     
     # Print total asset value
     def show_total_value(self, total_value):

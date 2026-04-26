@@ -19,6 +19,23 @@ class PortfolioController:
                 asset_data = self.view.ask_asset_input()
                 self.model.add_asset(asset_data)
 
+            
+            elif choice == "2":
+                price_choice = self.view.ask_current_and_historical_prices()
+                
+                if price_choice == "1":
+                    ticker = self.view.ask_ticker()
+                    current_price = self.model.get_current_price(ticker)
+                    self.view.show_current_price(ticker, current_price)
+
+                elif price_choice == "2":
+                    ticker = self.view.ask_ticker()
+                    historical_price = self.model.get_historical_price(ticker)
+                    self.view.show_historical_price(ticker, historical_price)
+
+                else:
+                    continue
+
             elif choice == "4":
                 # Function is from model, generating portfolio data
                 portfolio_data = self.model.get_portfolio()
@@ -56,9 +73,6 @@ class PortfolioController:
 
             
             '''
-            elif choice == "2":
-                price_choice = self.view.ask_current_and_historical_prices()
-                # Put this chosen option into function in model
 
             elif choice == "3":
                 graph_choice = self.view.ask_graph_choice()
