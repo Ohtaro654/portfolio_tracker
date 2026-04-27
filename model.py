@@ -1,4 +1,6 @@
 import yfinance as yf
+import numpy as np
+import pandas as pd
 
 class PortfolioModel:
     def __init__(self):
@@ -117,4 +119,103 @@ class PortfolioModel:
 
         return weights
     
+    # Point 6
+
+
+    # Function to calculate how much each ticker contributes to total portfolio, if we have 2 apple entries, then combine them
+    def aggregated_weights(self):
+        aggregated_values = {}
+
+        for asset in self.assets:
+            ticker = asset["ticker"]
+            value = asset["quantity"] * asset["purchase_price"]
+
+            if ticker not in aggregated_values:
+                aggregated_values[ticker] = 0
+
+            aggregated_values[ticker] += value
+
+        total_value = sum(aggregated_values.values())
+
+        if total_value == 0:
+            return {}
+        
+        weights = {}
+
+        for ticker, value in aggregated_values.items():
+            weights[ticker] = value / total_value
+
+        return weights
+
+
+    def simulate_portfolio(self, years = 15, paths = 100000):
+        if not self.assets:
+            return None
+        
+        # Weights per ticker, if we have two same ticker they get combined
+        weights = self.aggregated_weights()
+        if not weights:
+            return None
+        
+        tickers = list(weights.keys())
+        # Dictionary, every key is ticker and values are the historical prices as series with dates
+        historical_prices = {}
+
+        # For every ticker get the 5 year historical prices
+        for ticker in tickers:
+            prices = self.get_historical_price(ticker, "5y")
+
+            if prices is not None and not prices.empty:
+                historical_prices[ticker] = prices
+
+        if not historical_prices:
+            return None
+        
+        # Keys become column names, and the values become the columns, while the dates stay that way.
+        price_data = pd.DataFrame(historical_prices).dropna()
+
+        if price_data.empty:
+            return None
+        
+        # Changes dataframe with closing prices to daily returns, where we drop the first row
+        daily_returns = price_data.pct_change().dropna()
+
+        if daily_returns.empty:
+            return None
+        
+        # For dot product turn it into np.array, and then reorder the weights vector such that it matches daily_returns
+        weight_vector = np.array([weights[ticker] for ticker in price_data.columns])
+
+        # Matrix vector multiplication, now each row is daily returns of all tickers adjusted by weight
+        portfolio_returns = daily_returns.dot(weight_vector)
+
+        # On internet, average trading days per year is 252. This gives average trading return and volatilty in a year
+        annual_mean = portfolio_returns.mean() * 252
+        annual_volatility = portfolio_returns.std() * np.sqrt(252)
+
+        initial_portfolio_value = self.total_portfolio_value()
+
+        # Generates 100000 x 15 matrix, every row is simulated future
+        simulated_returns = np.random.normal(annual_mean, annual_volatility, size = (paths, years))
+
+        # Multiply initial portfolio value with the entire row, this is still 100000 x 15 matrix, but we compound each time
+        simulated_values = initial_portfolio_value * np.cumprod(1 + simulated_returns, axis = 1)
+
+        # Only extract the last column
+        final_values = simulated_values[:,-1]
+
+        return{
+            "initial value": initial_portfolio_value,
+            "mean final value": np.mean(final_values),
+            "median final value": np.median(final_values),
+            "5_percentile": np.percentile(final_values, 5),
+            "95_percentile": np.percentile(final_values, 95),
+            "final values": final_values
+        }
+    
+
+
+
+
+
 

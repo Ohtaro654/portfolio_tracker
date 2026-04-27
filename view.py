@@ -174,9 +174,57 @@ class PortfolioView:
             print(f"{key}: {value:.2%}")
 
     # Option 6
-    def show_simulation(self, results):
-        print("Simulation over the upcoming 15 years for the porfolio")
-        print(results)
+    def ask_simulation(self, results):
+        if results is None:
+            print("Simulation could not be performed")
+            return
+        
+        print("1. Show the statistics")
+        print("2. Show histogram for the simulations")
+        print("3. Back to main menu")
+
+        return input("Choose an option: ")
+
+    def show_statistics_simulation(self, results):
+        print("15 year Monte Carlo simulation with 100000 paths")
+        print(f"Initial portfolio value: {results['initial value']:.2f}")
+        print(f"Mean final value: {results['mean final value']:.2f}")
+        print(f"Median final value: {results['median final value']:.2f}")
+        print(f"5th percentile: {results['5_percentile']}")
+        print(f"95th percentile: {results['95_percentile']:.2f}")
+
+    
+    def show_graph_simulation(self, results):
+        final_values = results["final values"]
+        initial_value = results["initial value"]
+        mean = results["mean final value"]
+        median = results["median final value"]
+        p5 = results["5_percentile"]
+        p95 = results["95_percentile"]
+
+        plt.figure(figsize = (12, 6))
+        plt.hist(final_values, bins = 100)
+
+        plt.axvline(initial_value, linestyle = "dashed", label = "Initial Value", color = "red")
+        plt.axvline(mean, linestyle = "dashed", label = "Mean")
+        plt.axvline(median, linestyle = "dashed", label = "Median")
+        plt.axvline(p5, linestyle = "dashed", label = "5th percentile")
+        plt.axvline(p95, linestyle = "dashed", label = "95th percentile")
+
+        plt.title("Distribution of final portfolio value")
+        plt.xlabel("Value")
+        plt.ylabel("Frequency")
+
+        plt.legend()
+        plt.grid(True)
+
+        plt.show()
+
+
+
+
+
+        
 
 
   

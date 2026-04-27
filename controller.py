@@ -96,7 +96,21 @@ class PortfolioController:
                 
                 elif weight_choice == "5":
                     continue
-            
+
+
+            elif choice == "6":
+                simulation_results = self.model.simulate_portfolio()
+                simulation_choice = self.view.ask_simulation(simulation_results)
+
+                if simulation_choice == "1":
+                    self.view.show_statistics_simulation(simulation_results)
+
+                if simulation_choice == "2":
+                    self.view.show_graph_simulation(simulation_results)
+
+                if simulation_choice == "3":
+                    continue
+
             elif choice == "7":
                 print("done")
                 break
@@ -104,15 +118,6 @@ class PortfolioController:
             else:
                 print("Not implemented yet")
 
-            
-            '''
-
-
-            elif choice == "6":
-                simulation_results = self.model.function()
-                self.view.show_simulation(simulation_results)
-
-            '''
 
     # Function to keep asking ticker until you give right one
     # Check by seeing if ticker gives current price
