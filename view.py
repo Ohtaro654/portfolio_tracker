@@ -134,10 +134,10 @@ class PortfolioView:
             print("Empty portfolio")
             return
         
-        print("Ticker | Sector | Asset Class | Quantity | Purchase Price")
+        print("Ticker | Sector | Asset Class | Quantity | Purchase Price | current price | transaction value | current value")
         # Loop over every dictionary inside list
         for asset in portfolio_data:
-            print(f"{asset['ticker']} | {asset['sector']} | {asset['asset_class']} | {asset['quantity']} | {asset['purchase_price']}")
+            print(f"{asset['ticker']} | {asset['sector']} | {asset['asset_class']} | {asset['quantity']} | {asset['purchase_price']}, {asset['current_price']} | {asset['transaction_value']} | {asset['current_value']}")
         
     # Option 5
     def ask_calculation_choice(self):

@@ -2,6 +2,7 @@ import yfinance as yf
 
 class PortfolioModel:
     def __init__(self):
+        # List with dictionaries as entries, evey dictionary is about the stock you purchased
         self.assets = []
 
     '''
@@ -41,9 +42,6 @@ class PortfolioModel:
 
         return data["Close"]
 
-
-    def get_portfolio(self):
-        return self.assets
     
     # Point 3
 
@@ -60,10 +58,40 @@ class PortfolioModel:
         return prices
         
         
+    # Option 4
 
+    def get_portfolio(self):
+        return self.assets
+    
+    def get_full_portfolio(self):
+        # Need to add things to dictionary in list iteration
+        full_assets = []
 
+        for asset in self.assets:
+            ticker = asset["ticker"]
+            current_price = self.get_current_price(ticker)
+            quantity = asset["quantity"]
+            purchase_price = asset["purchase_price"]
 
-    # Point 4
+            transaction_value = quantity * purchase_price
+
+            if current_price is None:
+                current_price = None
+            else:
+                current_value = quantity * current_price
+
+            # Take a copy of dictionary, we do not want to change the original assets list
+            # new_asset is a dictionary, and we will modify this instead of the original asset
+            new_asset = asset.copy()
+
+            new_asset["current_price"] = current_price
+            new_asset["transaction_value"] = transaction_value
+            new_asset["current_value"] = current_value
+            full_assets.append(new_asset)
+
+        return full_assets
+
+    # Point 5
     def total_portfolio_value(self):
         total_value = sum(asset["quantity"] * asset["purchase_price"] for asset in self.assets)
         return total_value

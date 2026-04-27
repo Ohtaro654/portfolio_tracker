@@ -52,7 +52,7 @@ class PortfolioController:
 
             elif choice == "4":
                 # Function is from model, generating portfolio data
-                portfolio_data = self.model.get_portfolio()
+                portfolio_data = self.model.get_full_portfolio()
                 self.view.view_current_portfolio(portfolio_data)
 
             
