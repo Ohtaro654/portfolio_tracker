@@ -134,11 +134,23 @@ class PortfolioView:
             print("Empty portfolio")
             return
         
-        print("Ticker | Sector | Asset Class | Quantity | Purchase Price | current price | transaction value | current value")
+        print(f"{'Ticker':<10} {'Sector':<15} {'Asset Class':<15}"
+              f"{'Quantity':>10} {'Purchase price':>15} {'Current Price':>15}"
+              f"{'Transaction Value':>20} {'Current Value':>20}")
         # Loop over every dictionary inside list
         for asset in portfolio_data:
-            print(f"{asset['ticker']} | {asset['sector']} | {asset['asset_class']} | {asset['quantity']} | {asset['purchase_price']}, {asset['current_price']} | {asset['transaction_value']} | {asset['current_value']}")
-        
+            current_price = asset["current_price"]
+            current_value = asset["current_value"]
+
+            # For safety if somehow we can not get data from yfinance
+            current_price_text = "N/A" if current_price is None else f"{current_price:.2f}"
+            current_value_text = "N/A" if current_value is None else f"{current_value:.2f}"
+
+
+            print(f"{asset['ticker']:<10} {asset['sector']:<15} {asset['asset_class']:<15}"
+                  f"{asset['quantity']:>10.2f} {asset['purchase_price']:>15.2f} {current_price_text:>15}"
+                  f"{asset['transaction_value']:>20.2f} {current_value_text:>20}")
+
     # Option 5
     def ask_calculation_choice(self):
         print("1. Total portfolio value")
