@@ -76,7 +76,7 @@ class PortfolioModel:
             transaction_value = quantity * purchase_price
 
             if current_price is None:
-                current_price = None
+                current_value = None
             else:
                 current_value = quantity * current_price
 

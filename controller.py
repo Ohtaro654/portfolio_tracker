@@ -16,20 +16,31 @@ class PortfolioController:
             choice = self.view.ask_choice()
 
             if choice == "1":
-                asset_data = self.view.ask_asset_input()
-                self.model.add_asset(asset_data)
+                # Loop such that only valid tickers are allowed
+                while True:
+                    asset_data = self.view.ask_asset_input()
+                    ticker = asset_data["ticker"].upper()
+                    current_price = self.model.get_current_price(ticker)
+
+                    if current_price is not None:
+                        asset_data["ticker"] = ticker
+                        self.model.add_asset(asset_data)
+                        break
+
+                    print("Ticker is not valid, try again.")
+                    
 
             
             elif choice == "2":
                 price_choice = self.view.ask_current_and_historical_prices()
                 
                 if price_choice == "1":
-                    ticker = self.view.ask_ticker()
+                    ticker = self.ask_valid_ticker()
                     current_price = self.model.get_current_price(ticker)
                     self.view.show_current_price(ticker, current_price)
 
                 elif price_choice == "2":
-                    ticker = self.view.ask_ticker()
+                    ticker = self.ask_valid_ticker()
                     historical_price = self.model.get_historical_price(ticker, "1y")
 
                     self.view.show_historical_price(ticker, historical_price)
@@ -42,8 +53,16 @@ class PortfolioController:
                 
                 if graph_choice == "1":
                     tickers = self.view.ask_tickers()
+                    valid_tickers = []
+                    # Loop over every ticker to check if they are valid
+                    for ticker in tickers:
+                        if self.model.get_current_price(ticker) is not None:
+                            valid_tickers.append(ticker)
+                        else:
+                            print(f"{ticker} is invalid so this will be skipped and not shown in the graph.")
+
                     period = self.view.ask_period()
-                    historical_prices_per_ticker = self.model.multiple_historical_prices(tickers, period)
+                    historical_prices_per_ticker = self.model.multiple_historical_prices(valid_tickers, period)
                     graph = self.view.plot_graph(historical_prices_per_ticker)
 
                 else:
@@ -94,6 +113,18 @@ class PortfolioController:
                 self.view.show_simulation(simulation_results)
 
             '''
+
+    # Function to keep asking ticker until you give right one
+    # Check by seeing if ticker gives current price
+    def ask_valid_ticker(self):
+        while True:
+            ticker = self.view.ask_ticker().upper()
+            price = self.model.get_current_price(ticker)
+
+            if price is not None:
+                return ticker
+        
+            print("Ticker is not valid, try again.")
 
 
             
