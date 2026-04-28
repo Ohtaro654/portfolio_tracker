@@ -151,6 +151,11 @@ class PortfolioController:
                 self.view.pause()
 
             elif choice == "9":
+                correlation_matrix = self.model.correlation_matrix()
+                self.view.show_correlation(correlation_matrix)
+                self.view.pause()
+
+            elif choice == "10":
                 print("done")
                 break
                 
@@ -170,6 +175,3 @@ class PortfolioController:
                 return ticker
         
             print("Ticker is not valid, try again.")
-
-
-            

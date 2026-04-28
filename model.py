@@ -272,10 +272,38 @@ class PortfolioModel:
             sharpe_ratio = annual_mean / annual_volatility
         
         var_95 = np.percentile(portfolio_returns, 5)
-        
+
         return{
             "annual return": annual_mean,
             "annual volatility": annual_volatility,
             "sharpe ratio": sharpe_ratio,
             "95% VaR": var_95
         }
+    
+
+    # Point 10
+    def correlation_matrix(self):
+        if not self.assets:
+            return None
+        
+        # Extract all individual tickers
+        tickers = list(set(asset["ticker"] for asset in self.assets))
+
+        # Dictionary with ticker as key and series of historical prices as value
+        historical_prices = self.multiple_historical_prices(tickers, "1y")
+
+        # Dates on left, tickers as column names and series as columns
+        prices = pd.DataFrame(historical_prices).dropna()
+
+        if prices.empty:
+            return None
+        
+        # Every row becomes difference
+        returns = prices.pct_change().dropna()
+
+        if returns.empty:
+            return None
+        
+        # Correlation matrix, 5 tickers means 5x5 matrix
+        correlation = returns.corr()
+        return correlation

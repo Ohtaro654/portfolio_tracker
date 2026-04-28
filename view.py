@@ -12,7 +12,8 @@ class PortfolioView:
         print("6. Simulation over 15 years")
         print("7. Remove asset")
         print("8. Show risk metrics portfolio")
-        print("9. Exit")
+        print("9. Calculate correlation matrix")
+        print("10. Exit")
     
     # Ask for choice (number input) 
     def ask_choice(self):
@@ -251,15 +252,17 @@ class PortfolioView:
         
         print(f"95% daily value at risk: {metrics["95% VaR"]:.2%}")
 
+    # Point 9
+    def show_correlation(self, corr):
+        if corr is None:
+            print("Correlation matrix could not be calculated.")
+            return
+        
+        print("Correlation matrix: ")
+        print(corr.round(2))
 
 
+    
         # Function such that program does not immediately go to the main menu, cleaner
     def pause(self):
         input("\nPress Enter to return the main menu: ")
-
-
-
-        
-
-
-  
