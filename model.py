@@ -7,9 +7,6 @@ class PortfolioModel:
         # List with dictionaries as entries, every dictionary is about the stock you purchased
         self.assets = []
 
-    '''
-    Maybe add removing asset
-    '''
     # Point 1
     def add_asset(self, asset_data):
         asset = {
@@ -263,8 +260,6 @@ class PortfolioModel:
 
         annual_mean = portfolio_returns.mean() * 252
         annual_volatility = portfolio_returns.std() * np.sqrt(252)
-
-        initial_portfolio_value = self.total_portfolio_value()
 
         if annual_volatility == 0:
             sharpe_ratio = None
