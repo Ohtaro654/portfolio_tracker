@@ -118,6 +118,26 @@ class PortfolioController:
                     continue
 
             elif choice == "7":
+                portfolio_data = self.model.get_full_portfolio()
+                self.view.view_current_portfolio(portfolio_data)
+
+                remove_index = self.view.ask_remove_index()
+
+                try:
+                    remove_index = int(remove_index)
+                    success = self.model.remove_asset(remove_index)
+
+                    if success:
+                        self.view.show_remove_success()
+                    else:
+                        self.view.show_remove_error()
+
+                except ValueError:
+                    self.view.show_remove_error()
+
+                self.view.pause()
+
+            elif choice == "8":
                 print("done")
                 break
                 

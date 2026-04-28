@@ -6,7 +6,7 @@ This is a CLI application in which we can track and analyse a simple investment 
 
 - Add assets: ticker, sector, asset class, quantity and purchase price. Also keeps asking for ticker until a valid ticker is put in.
 - Shows the current price and historical price (past 5 days) of the specified ticker from Yahoo Finance.
-- Shows a graph of historical data over the years for one or more tickers. This can be seen for 1 month, 3 months, half a year, 1 year, 3 years or 5 years.
+- Shows a graph of historical data over the years for one or more tickers. This can be seen for 1 month, 3 months, half a year, 1 year, 3 years or 5 years. Chose for options instead of free choice, because user might not be familiar with syntax like 1mo or 1y.
 - View current portfolio with ticker, sector, asset class, quantity, purchase price, current price, transaction value and current value in a nicely formatted table.
 - Compute portfolio weights for each asset, for each asset class or for each sector.
 - Perform a Monte Carlo simulation over next 15 years for 100000 paths, and get summary statistics from this. Also able to plot a histogram to see the distribution for future portfolio value.

@@ -125,9 +125,8 @@ class PortfolioModel:
 
         return weights
     
+
     # Point 6
-
-
     # Function to calculate how much each ticker contributes to total portfolio, if we have 2 apple entries, then combine them
     def aggregated_weights(self):
         aggregated_values = {}
@@ -219,6 +218,14 @@ class PortfolioModel:
             "final values": final_values
         }
     
+    # Point 7
+    def remove_asset(self, index):
+        if index < 0 or index >= len(self.assets):
+            return False
+        
+        self.assets.pop(index)
+        return True
+
 
 
 

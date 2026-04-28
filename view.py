@@ -10,7 +10,8 @@ class PortfolioView:
         print("4. View current portfolio")
         print("5. Calculations total portfolio")
         print("6. Simulation over 15 years")
-        print("7. Exit")
+        print("7. Remove asset")
+        print("8. Exit")
     
     # Ask for choice (number input) 
     def ask_choice(self):
@@ -134,11 +135,11 @@ class PortfolioView:
             print("Empty portfolio")
             return
         
-        print(f"{'Ticker':<10} {'Sector':<15} {'Asset Class':<15}"
+        print(f"{'No.':<5} {'Ticker':<10} {'Sector':<15} {'Asset Class':<15}"
               f"{'Quantity':>10} {'Purchase price':>15} {'Current Price':>15}"
               f"{'Transaction Value':>20} {'Current Value':>20}")
         # Loop over every dictionary inside list
-        for asset in portfolio_data:
+        for i, asset in enumerate(portfolio_data):
             current_price = asset["current_price"]
             current_value = asset["current_value"]
 
@@ -147,7 +148,7 @@ class PortfolioView:
             current_value_text = "N/A" if current_value is None else f"{current_value:.2f}"
 
 
-            print(f"{asset['ticker']:<10} {asset['sector']:<15} {asset['asset_class']:<15}"
+            print(f"{i:<5} {asset['ticker']:<10} {asset['sector']:<15} {asset['asset_class']:<15}"
                   f"{asset['quantity']:>10.2f} {asset['purchase_price']:>15.2f} {current_price_text:>15}"
                   f"{asset['transaction_value']:>20.2f} {current_value_text:>20}")
 
@@ -219,6 +220,17 @@ class PortfolioView:
         plt.grid(True)
 
         plt.show()
+
+    # Point 7
+    def ask_remove_index(self):
+        return input("Which asset do you want to remove (enter the index): ")
+    
+    def show_remove_success(self):
+        print("Asset removed successfully!")
+
+    def show_remove_error(self):
+        print("Invalid asset number.")
+
 
         # Function such that program does not immediately go to the main menu, cleaner
     def pause(self):
