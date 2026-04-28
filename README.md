@@ -20,20 +20,41 @@ The project follows the Model-View-Controller (MVC) design pattern:
 - Controller: Connects the model and the view to make the whole project flow.
 
 ## Installation
-Clone the repository:
+Python 3.10–3.12 recommended
+#### Mac
+
 git clone https://github.com/Ohtaro654/portfolio_tracker
+
 cd portfolio_tracker
 
+#### Create virtual environment
+python3 -m venv venv
 
+#### Activate it
+source venv/bin/activate
+
+#### Install dependencies
 pip install -r requirements.txt
+
+#### Run application
 python main.py
 
-## How to run
 
+
+
+### Windows
+git clone https://github.com/Ohtaro654/portfolio_tracker
+
+cd portfolio_tracker
+
+#### Create virtual environment
+python -m venv venv
+
+#### Activate it
+venv\Scripts\activate
+
+#### Install dependencies
+pip install -r requirements.txt
+
+#### Run application
 python main.py
-
-
-
-
-
-
