@@ -95,7 +95,8 @@ class PortfolioModel:
 
     # Point 5
     def total_portfolio_value(self):
-        total_value = sum(asset["quantity"] * asset["purchase_price"] for asset in self.assets)
+        total_value = sum(asset["quantity"] * self.get_current_price(asset["ticker"]) for asset in self.assets
+                          if self.get_current_price(asset["ticker"]) is not None)
         return total_value
 
     # Calculate the weights
@@ -108,7 +109,12 @@ class PortfolioModel:
 
         for asset in self.assets:
             key = asset[group]
-            value = asset["quantity"] * asset["purchase_price"]
+            current_price = self.get_current_price(asset["ticker"])
+            if current_price is None:
+                continue
+
+            
+            value = asset["quantity"] * current_price
             if key not in weights:
                 weights[key] = 0
             
