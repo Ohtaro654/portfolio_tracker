@@ -55,9 +55,6 @@ class PortfolioView:
         
         print(f"The current price for {ticker} is {price:.2f}.")
 
-    '''
-    Maybe let the user manually input this
-    '''
     def ask_period(self):
         print("Choose period: ")
         print("1. 1 month")
@@ -95,10 +92,6 @@ class PortfolioView:
         for date, value in last_5_days.items():
             print(f"{date.date()} | {value:.2f}")
 
-    
-    '''
-    Maybe add log differences of stocks
-    '''
     # Option 3
     def ask_graph_choice(self):
         print("1. Create graph")
@@ -242,15 +235,15 @@ class PortfolioView:
             return
         
         print("Portfolio risk metrics:")
-        print(f"Annualised return: {metrics["annual return"]:.2%}")
-        print(f"Annualised volatility: {metrics["annual volatility"]:.2%}")
+        print(f"Annualised return: {metrics['annual return']:.2%}")
+        print(f"Annualised volatility: {metrics['annual volatility']:.2%}")
 
-        if metrics is None:
+        if metrics["sharpe ratio"] is None:
             print("Sharpe ratio is not computable.")
         else:
-            print(f"Sharpe ratio: {metrics["sharpe ratio"]:.2f}")
+            print(f"Sharpe ratio: {metrics['sharpe ratio']:.2f}")
         
-        print(f"95% daily value at risk: {metrics["95% VaR"]:.2%}")
+        print(f"95% daily value at risk: {metrics['95% VaR']:.2%}")
 
     # Point 9
     def show_correlation(self, corr):

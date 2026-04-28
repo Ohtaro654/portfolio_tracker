@@ -267,7 +267,7 @@ class PortfolioModel:
         initial_portfolio_value = self.total_portfolio_value()
 
         if annual_volatility == 0:
-            sharpe_ration = None
+            sharpe_ratio = None
         else:
             sharpe_ratio = annual_mean / annual_volatility
         
@@ -281,7 +281,7 @@ class PortfolioModel:
         }
     
 
-    # Point 10
+    # Point 9
     def correlation_matrix(self):
         if not self.assets:
             return None

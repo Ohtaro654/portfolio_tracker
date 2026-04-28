@@ -10,6 +10,10 @@ This is a CLI application in which we can track and analyse a simple investment 
 - View current portfolio with ticker, sector, asset class, quantity, purchase price, current price, transaction value and current value in a nicely formatted table.
 - Compute portfolio weights for each asset, for each asset class or for each sector.
 - Perform a Monte Carlo simulation over next 15 years for 100000 paths, and get summary statistics from this. Also able to plot a histogram to see the distribution for future portfolio value.
+- remove asset.
+- show the risk metrics like VaR and sharpe ratio.
+- Calculate correlation matrix, such that we can see which stocks move together, giving information about how to diversify portfolio.
+
 
 ## Architecture
 

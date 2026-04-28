@@ -23,7 +23,7 @@ class PortfolioController:
                     try:
                         asset_data["quantity"] = float(asset_data["quantity"])
                         asset_data["purchase_price"] = float(asset_data["purchase_price"])
-                    except:
+                    except ValueError:
                         print("Quantity and purchase price must be numbers, try again.")
                         continue
 
