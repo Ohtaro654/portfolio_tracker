@@ -19,6 +19,14 @@ class PortfolioController:
                 # Loop such that only valid tickers are allowed
                 while True:
                     asset_data = self.view.ask_asset_input()
+
+                    try:
+                        asset_data["quantity"] = float(asset_data["quantity"])
+                        asset_data["purchase_price"] = float(asset_data["purchase_price"])
+                    except:
+                        print("Quantity and purchase price must be numbers, try again.")
+                        continue
+
                     ticker = asset_data["ticker"].upper()
                     current_price = self.model.get_current_price(ticker)
 
