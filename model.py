@@ -4,7 +4,7 @@ import pandas as pd
 
 class PortfolioModel:
     def __init__(self):
-        # List with dictionaries as entries, evey dictionary is about the stock you purchased
+        # List with dictionaries as entries, every dictionary is about the stock you purchased
         self.assets = []
 
     '''
@@ -31,7 +31,7 @@ class PortfolioModel:
         if data.empty:
             return None
         
-        # Iloc for safety, probably not intraday so fine
+        # iloc for safety, probably not intraday so fine
         return data["Close"].iloc[-1]
 
 
@@ -113,7 +113,7 @@ class PortfolioModel:
             if current_price is None:
                 continue
 
-            
+
             value = asset["quantity"] * current_price
             if key not in weights:
                 weights[key] = 0
@@ -183,7 +183,7 @@ class PortfolioModel:
         if price_data.empty:
             return None
         
-        # Changes dataframe with closing prices to daily returns, where we drop the first row
+        # Convert dataframe with closing prices to daily returns, where we drop the first row
         daily_returns = price_data.pct_change().dropna()
 
         if daily_returns.empty:

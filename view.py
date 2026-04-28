@@ -85,7 +85,7 @@ class PortfolioView:
             print("No data available")
             return
         
-        print(f"Print the last 5 closing prices for {ticker}.")
+        print(f"Last 5 closing prices for {ticker}:")
 
         last_5_days = prices.tail(5)
 
@@ -105,7 +105,7 @@ class PortfolioView:
     
     # Returns a list with tickers
     def ask_tickers(self):
-        tickers = input("Enter tickers seperated by comma's: ")
+        tickers = input("Enter tickers separated by commas: ")
         return [ticker.strip().upper() for ticker in tickers.split(",")]
     
     # Prices from the model, dictionary with ticker as key and series with date and closing price as value
@@ -120,8 +120,8 @@ class PortfolioView:
             plt.plot(price_series.index, price_series.values, label = ticker)
 
         plt.title("Historical closing prices")
-        plt.xlabel("Data")
-        plt.ylabel("closing prices")
+        plt.xlabel("Date")
+        plt.ylabel("Closing Prices")
         plt.legend()
         plt.grid(True)
         plt.tight_layout()
@@ -222,7 +222,7 @@ class PortfolioView:
 
         # Function such that program does not immediately go to the main menu, cleaner
     def pause(self):
-        input("\nPress Enter to return the the main menu: ")
+        input("\nPress Enter to return the main menu: ")
 
 
 
