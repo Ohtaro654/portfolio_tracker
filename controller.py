@@ -38,12 +38,13 @@ class PortfolioController:
                     ticker = self.ask_valid_ticker()
                     current_price = self.model.get_current_price(ticker)
                     self.view.show_current_price(ticker, current_price)
+                    self.view.pause()
 
                 elif price_choice == "2":
                     ticker = self.ask_valid_ticker()
                     historical_price = self.model.get_historical_price(ticker, "1y")
-
                     self.view.show_historical_price(ticker, historical_price)
+                    self.view.pause()
 
                 else:
                     continue
@@ -64,39 +65,42 @@ class PortfolioController:
                     period = self.view.ask_period()
                     historical_prices_per_ticker = self.model.multiple_historical_prices(valid_tickers, period)
                     graph = self.view.plot_graph(historical_prices_per_ticker)
+                    self.view.pause()
 
                 else:
                     continue
-
 
             elif choice == "4":
                 # Function is from model, generating portfolio data
                 portfolio_data = self.model.get_full_portfolio()
                 self.view.view_current_portfolio(portfolio_data)
+                self.view.pause()
 
-            
             elif choice == "5":
                 weight_choice = self.view.ask_calculation_choice()
 
                 if weight_choice == "1":
                     total_value = self.model.total_portfolio_value()
                     self.view.show_total_value(total_value)
+                    self.view.pause()
 
                 elif weight_choice == "2":
                     weight_per_asset = self.model.weight_calculation("ticker")
                     self.view.show_weight(weight_per_asset)
+                    self.view.pause()
 
                 elif weight_choice == "3":
                     weight_per_class = self.model.weight_calculation("asset_class")
                     self.view.show_weight(weight_per_class)
+                    self.view.pause()
 
                 elif weight_choice == "4":
                     weight_per_sector = self.model.weight_calculation("sector")
                     self.view.show_weight(weight_per_sector)
+                    self.view.pause()
                 
                 elif weight_choice == "5":
                     continue
-
 
             elif choice == "6":
                 simulation_results = self.model.simulate_portfolio()
@@ -104,9 +108,11 @@ class PortfolioController:
 
                 if simulation_choice == "1":
                     self.view.show_statistics_simulation(simulation_results)
+                    self.view.pause()
 
                 if simulation_choice == "2":
                     self.view.show_graph_simulation(simulation_results)
+                    self.view.pause()
 
                 if simulation_choice == "3":
                     continue
@@ -117,6 +123,7 @@ class PortfolioController:
                 
             else:
                 print("Not implemented yet")
+                self.view.pause()
 
 
     # Function to keep asking ticker until you give right one

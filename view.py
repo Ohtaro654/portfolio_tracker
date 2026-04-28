@@ -220,7 +220,9 @@ class PortfolioView:
 
         plt.show()
 
-
+        # Function such that program does not immediately go to the main menu, cleaner
+    def pause(self):
+        input("\nPress Enter to return the the main menu: ")
 
 
 
