@@ -146,6 +146,11 @@ class PortfolioController:
                 self.view.pause()
 
             elif choice == "8":
+                metrics = self.model.portfolio_risk_metrics()
+                self.view.show_risk_metrics(metrics)
+                self.view.pause()
+
+            elif choice == "9":
                 print("done")
                 break
                 

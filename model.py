@@ -225,10 +225,57 @@ class PortfolioModel:
         
         self.assets.pop(index)
         return True
+    
+    # Point 8
+    def portfolio_risk_metrics(self):
+        if not self.assets:
+            return None
+        
+        weights = self.aggregated_weights()
+        if not weights:
+            return None
+        
+        tickers = list(weights.keys())
+        historical_prices = {}
 
+        for ticker in tickers:
+            prices = self.get_historical_price(ticker, "5y")
+            if prices is not None and not prices.empty:
+                historical_prices[ticker] = prices
 
+        if not historical_prices:
+            return None
+        
+        price_data = pd.DataFrame(historical_prices).dropna()
 
+        if price_data.empty:
+            return None
+        
+        # Convert dataframe with closing prices to daily returns, where we drop the first row
+        daily_returns = price_data.pct_change().dropna()
 
+        if daily_returns.empty:
+            return None
+        
+        weight_vector = np.array([weights[ticker] for ticker in price_data.columns])
 
+        portfolio_returns = daily_returns.dot(weight_vector)
 
+        annual_mean = portfolio_returns.mean() * 252
+        annual_volatility = portfolio_returns.std() * np.sqrt(252)
 
+        initial_portfolio_value = self.total_portfolio_value()
+
+        if annual_volatility == 0:
+            sharpe_ration = None
+        else:
+            sharpe_ratio = annual_mean / annual_volatility
+        
+        var_95 = np.percentile(portfolio_returns, 5)
+        
+        return{
+            "annual return": annual_mean,
+            "annual volatility": annual_volatility,
+            "sharpe ratio": sharpe_ratio,
+            "95% VaR": var_95
+        }

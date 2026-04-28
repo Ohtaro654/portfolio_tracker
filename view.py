@@ -11,7 +11,8 @@ class PortfolioView:
         print("5. Calculations total portfolio")
         print("6. Simulation over 15 years")
         print("7. Remove asset")
-        print("8. Exit")
+        print("8. Show risk metrics portfolio")
+        print("9. Exit")
     
     # Ask for choice (number input) 
     def ask_choice(self):
@@ -230,6 +231,26 @@ class PortfolioView:
 
     def show_remove_error(self):
         print("Invalid asset number.")
+
+    
+    # Point 8
+
+    def show_risk_metrics(self, metrics):
+        if metrics is None:
+            print("Risk metrics could not be calculated.")
+            return
+        
+        print("Portfolio risk metrics:")
+        print(f"Annualised return: {metrics["annual return"]:.2%}")
+        print(f"Annualised volatility: {metrics["annual volatility"]:.2%}")
+
+        if metrics is None:
+            print("Sharpe ratio is not computable.")
+        else:
+            print(f"Sharpe ratio: {metrics["sharpe ratio"]:.2f}")
+        
+        print(f"95% daily value at risk: {metrics["95% VaR"]:.2%}")
+
 
 
         # Function such that program does not immediately go to the main menu, cleaner
