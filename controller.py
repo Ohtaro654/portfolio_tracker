@@ -20,6 +20,7 @@ class PortfolioController:
                 while True:
                     asset_data = self.view.ask_asset_input()
 
+                    # Try to convert quantity and purchase price to float, if it fails, ask again
                     try:
                         asset_data["quantity"] = float(asset_data["quantity"])
                         asset_data["purchase_price"] = float(asset_data["purchase_price"])
